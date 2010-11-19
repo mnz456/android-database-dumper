@@ -3,7 +3,7 @@
 # cam1235(at)port(dot)ac(dot)uk - Ben Harrison-Smith
 # The University of Portsmouth
 # Digital Forensics - DFIR Year 3
-# -Requires expect
+# -Requires andriod SDK in current dir
 
 echo -e "       \n### Android database dumper ###"
 echo -e "Note: This application accesses the devices Sdcard\nTake required precautions!\n"
@@ -33,7 +33,7 @@ caseno=
 wrkdir=
 # Case setup
 while [[ "$insp" || "$caseno" || "$wrkdir" == "" ]]; do
-	echo -n "Enter examiner referance: " 
+	echo -n "Enter examiner reference: " 
 	read insp
 	echo -n "Enter case no.: " 
 	read caseno 
@@ -48,7 +48,7 @@ while [[ "$insp" || "$caseno" || "$wrkdir" == "" ]]; do
 done
 
 while [ -e $wrkdir ]; do
-	echo -n "$wrkdir already exsists, please choose an empty dir"
+	echo -n "$wrkdir already exists, please choose an empty dir"
 	read wrkdir
 done
 # add / if missing
@@ -75,11 +75,11 @@ then
 fi
 echo -e "\n## Device(s) found! ##"
 ./adb devices | tee -a $wrkdir$caseno/$caseno.log
-echo -n "Remouting..."
+echo -n "Remounting..."
 ./adb remount
 
 # Use of expect due to bash formatting issues when piping from
-# adb console - ./adb shell find /data -name *.db > out.txt (erronous)
+# adb console - ./adb shell find /data -name *.db > out.txt (erroneous)
 
 # Find databases
 echo -e "\n## Searching device for .db files ##"
@@ -98,7 +98,7 @@ cat gendb.txt | while read line
 		devstatus="$(./adb get-state)"
 		if [ $devstatus == "unknown" ] 
 		then
-			echo "## Error: Device disconnected! Qutiing.. ##" | tee -a $wrkdir$caseno/$caseno.log
+			echo "## Error: Device disconnected! Quiting.. ##" | tee -a $wrkdir$caseno/$caseno.log
 			exit 1
 		fi
 		x=`expr $x + 1`
