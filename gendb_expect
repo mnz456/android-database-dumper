@@ -1,0 +1,9 @@
+#!/bin/expect
+set timeout 20
+spawn ./adb shell
+expect "#"
+send "su\r"
+expect "#"
+send "find /data -name *.db > /sdcard/gendb.txt \r"
+expect "#"
+send "exit\r"
