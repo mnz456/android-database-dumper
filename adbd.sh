@@ -3,7 +3,7 @@
 # cam1235(at)port(dot)ac(dot)uk - Ben Harrison-Smith
 # The University of Portsmouth
 # Digital Forensics - DFIR Year 3
-# -Requires andriod SDK in current dir
+# Requires android SDK in current dir
 
 echo -e "       \n### Android database dumper ###"
 echo -e "Note: This application accesses the devices Sdcard\nTake required precautions!\n"
@@ -87,7 +87,7 @@ expect -f gendb_expect
 echo "Pulling directory listing.."
 ./adb pull /sdcard/gendb.txt gendb.txt | tee -a $wrkdir$caseno/$caseno.log
 
-# make secure tmp dir
+# Make secure tmp dir
 sectmp=$caseno$RANDOM
 trap 'echo -e "\nTrapped exit signal, cleaning up.." | tee -a $wrkdir$caseno/$caseno.log ; ./adb shell rm -rf /sdcard/$sectmp/ ; exit'  INT
 count="$(cat gendb.txt | wc -l)"
@@ -138,7 +138,7 @@ fi
 # Lock files as read only
 chmod 444 $wrkdir$caseno/*
 echo -e "\nReport generated: "$wrkdir$caseno"/"$caseno".log"
-echo "Summary: "$count" databases extracted" | tee -a $wrkdir$caseno/$caseno.log
+# echo "Summary: "$count" databases extracted" | tee -a $wrkdir$caseno/$caseno.log
 echo "exiting.."
 echo
 fi
